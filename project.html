@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>畢業專題提案展示：基於邊緣運算與層級化特徵標註之戶外生態教育全息互動系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        .slide { display: none; }
+        .slide.active { display: flex; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-hidden bg-slate-950">
+
+    <header class="bg-slate-900 border-b-2 border-slate-800 px-12 py-5 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center space-x-4">
+            <h1 class="text-xl font-bold tracking-wider text-slate-200">專題名稱：萊恩哥哥複製體計畫</h1>
+        </div>
+        <div class="text-lg font-semibold font-mono text-sky-400" id="page-indicator">PAGE: 01 / 06</div>
+    </header>
+
+    <main class="flex-1 min-h-0 w-full max-w-7xl mx-auto px-12 py-6 flex items-start justify-center overflow-y-auto">
+
+        <div id="page-1" class="slide active flex-col w-full space-y-6">
+            <h2 class="text-3xl font-extrabold text-sky-400">一、 研究動機：現行生態數位化之瓶頸反思</h2>
+            <p class="text-lg text-slate-400">探討現行數位圖鑑流於單向資訊灌輸，缺乏互動倫理引引與人性化對話溫度的現況。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 space-y-4 shadow-xl">
+                    <div class="text-2xl font-bold text-sky-300">1. 單向度資訊灌輸之局限</div>
+                    <ul class="text-base text-slate-300 space-y-3 list-disc list-inside text-justify">
+                        <li>現行數位生態系統多偏重於靜態生物分類學資料（如界門綱目科屬種、型態特徵文字）的展示。</li>
+                        <li>此類結構化資料缺乏情境脈絡與互動趣味，易導致學習者產生感官疏離，難以深化環境倫理。</li>
+                        <li>數位化流於形式，未能發揮科技增強學習（Technology-Enhanced Learning）的雙向反饋優勢。</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 space-y-4 shadow-xl">
+                    <div class="text-2xl font-bold text-amber-400">2. 現場專業導覽人力供需失衡</div>
+                    <ul class="text-base text-slate-300 space-y-3 list-disc list-inside text-justify">
+                        <li>生態復育基地（如苗栗獨角仙復育現場）具備高度季節性，專業導覽人才（如台大昆蟲系專家）在高峰期運能嚴重不足。</li>
+                        <li>缺乏即時互動引導與環境倫理教育，易導致遊客因缺乏認知而產生不當採集行為，對在地復育造成二度生態破壞。</li>
+                        <li>急需一套能數位孿生專家領域知識、兼具人性化交談風格的生成式 Agent 系統。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-2" class="slide flex-col w-full space-y-6">
+            <h2 class="text-3xl font-extrabold text-sky-400">二、 技術痛點：戶外極端環境之視覺辨識干擾</h2>
+            <p class="text-lg text-slate-400">探討泛用型物件偵測模型於複雜田野環境下，因環境光源與生物行為導致的辨識失準。</p>
+            
+            <div class="space-y-6 mt-4">
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex items-center space-x-6 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 rounded-xl text-center border border-slate-800">
+                        <span class="text-xl font-bold text-rose-400">環境背景<br>干擾</span>
+                    </div>
+                    <div class="flex-1 text-base text-slate-300 text-justify">
+                        <strong class="text-rose-400 text-lg block mb-1">【 環境雜訊與輪廓不全 】</strong>
+                        戶外光臘樹林在夏季高強度日照下，易產生大逆光與破碎陰影干擾。生物光滑鞘翅亦會引發高亮度反光；加上昆蟲在野外具備隱匿、葉片遮蔽、或交配打架等重疊行為，導致傳統 YOLO 全局邊界框因特徵不全而引發漏看。
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-indigo-900/40 rounded-2xl p-6 flex items-center space-x-6 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 rounded-xl text-center border border-slate-800">
+                        <span class="text-xl font-bold text-emerald-400">層級化<br>特徵救援</span>
+                    </div>
+                    <div class="flex-1 text-base text-slate-300 text-justify">
+                        <strong class="text-emerald-400 text-lg block mb-1">【 區域注意力機制與部件特徵對齊 】</strong>
+                        本計畫於資料集標註階段導入「層級化部件標註」，細分生物局部特徵（如觭角、大顎、前胸背板）。當全局信心度因遮蔽而低於臨界值時，後端系統將強行觸發<strong>空間注意力機制</strong>，藉由高信心度的局部特徵進行反向推理救援，確保系統之強健性（Robustness）。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-3" class="slide flex-col w-full space-y-6">
+            <h2 class="text-3xl font-extrabold text-sky-400">三、 知識工程：基於田野訪談之專家職能與人格蒸餾（Skill & Persona Distillation）</h2>
+            <p class="text-lg text-slate-400">本專題核心在於將專家難以言傳的「暗默知識」與個人特質，系統化地提煉並封裝進 AI 模型中。</p>
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6 mt-2 shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-mono text-purple-400 mb-1">STAGE 01</div>
+                            <h4 class="text-xl font-bold text-white mb-2">暗默知識擷取 (Tacit Knowledge)</h4>
+                            <p class="text-slate-400 text-sm text-justify">
+                                針對台大昆蟲系專業人才進行深度田野跟拍與訪談。採集其在北橫、苗栗等地多年累積的「非結構化」生態觀察筆記、微棲地行為數據與解說心法。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-mono text-yellow-400 mb-1">STAGE 02</div>
+                            <h4 class="text-xl font-bold text-white mb-2">人格特徵工程 (Persona Profiling)</h4>
+                            <p class="text-slate-400 text-sm text-justify">
+                                透過語音轉錄逐字稿與行為分析，精確提煉專家在現場導覽時的「高能量語速、科普轉化技巧、與幽默吐槽的互動邏輯框架」，將個人特質進行特徵化編碼。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-6 rounded-xl border-2 border-indigo-500/30 flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-mono text-emerald-400 mb-1">STAGE 03</div>
+                            <h4 class="text-xl font-bold text-white mb-2">職能封裝與對齊 (Skill Alignment)</h4>
+                            <p class="text-slate-400 text-sm text-justify">
+                                將提煉出的專家大腦（RAG正確數據）與專家靈魂（人格提示詞工程）進行深度整合，封裝至本地邊緣端小模型（Ollama），完美達成專家職能的數位孿生。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-sm text-slate-300 leading-relaxed bg-slate-950 p-4 rounded-xl border border-slate-800 text-justify">
+                    <strong>💡 專題核心價值：</strong> 透過「職能與人格蒸餾技術」，本系統不只能在完全斷網的復育基地提供毫秒級的極速交談響應，更打破了傳統數位圖鑑缺乏人性化引導的缺點，將最寶貴的專家解說溫度 100% 在科技載體中實現。
+                </div>
+            </div>
+        </div>
+
+        <div id="page-4" class="slide flex-col w-full space-y-6">
+            <h2 class="text-3xl font-extrabold text-sky-400">四、 系統架構與資料流運行圖 (Runtime Data Flow)</h2>
+            <p class="text-lg text-slate-400">本專題各技術元件於系統執行期間（Runtime）的同步調度與整合邏輯：</p>
+            
+            <div class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-6 font-mono text-base space-y-4 text-sky-400 shadow-inner">
+                <div class="flex items-center space-x-4">
+                    <span class="bg-sky-600 text-white px-3 py-1 rounded text-sm font-bold">1. 前端請求</span>
+                    <span class="text-slate-300">終端載具網頁（React/Vue Web-AR）或室內全息箱捕捉昆蟲影像 ──► 透過 API 傳輸至 <strong class="text-white">Node.js</strong></span>
+                </div>
+                <div class="flex items-center space-x-4 pl-8 border-l-2 border-slate-800">
+                    <span class="bg-indigo-600 text-white px-3 py-1 rounded text-sm font-bold">2. 視覺推斷</span>
+                    <span class="text-slate-300">Node.js 管家轉發 ──► 本地端 <strong class="text-white">Python FastAPI</strong> 驅動 <strong class="text-yellow-400">YOLO v11</strong> 執行細粒度部件辨識救援</span>
+                </div>
+                <div class="flex items-center space-x-4 pl-16 border-l-2 border-slate-800">
+                    <span class="bg-purple-600 text-white px-3 py-1 rounded text-sm font-bold">3. 數據對齊</span>
+                    <span class="text-slate-300">YOLO 輸出物種分類標籤 ──► 觸發 <strong class="text-purple-400">ChromaDB (RAG 向量知識庫)</strong> 檢索，100% 擷取正確專家田調文本塊</span>
+                </div>
+                <div class="flex items-center space-x-4 pl-24 border-l-2 border-slate-800">
+                    <span class="bg-pink-600 text-white px-3 py-1 rounded text-sm font-bold">4. 生成響應</span>
+                    <span class="text-slate-300">經蒸餾封裝之專家文獻與人格化提示詞融合 ──► 餵給 <strong class="text-pink-400">Ollama 地端模型</strong> ──► 同步生成專家語音與動態動作 JSON 指令</span>
+                </div>
+                <div class="flex items-center space-x-12 pl-8 text-emerald-400 font-semibold">
+                    <span>🏁 5. 前端渲染 ──► Node.js 分發回傳 ──► 觸發 Unity 3D 角色與行動載具同步進行流暢的專家導覽與互動演出。</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-5" class="slide flex-col w-full space-y-6">
+            <h2 class="text-3xl font-extrabold text-sky-400">五、 多載體聯動：因地制宜的雙前端互動架構</h2>
+            <p class="text-lg text-slate-400">由中介層 Node.js (BFF 架構) 統一調度業務邏輯，針對室內與戶外環境提供最適之呈現載體：</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
+                <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl text-amber-400">🔮</span>
+                        <h3 class="text-xl font-bold text-slate-200">室內展示：全息投影虛實整合標本箱</h3>
+                    </div>
+                    <p class="text-base text-slate-300 text-justify leading-relaxed">
+                        <strong>開發環境：Unity (C#) 互動引擎</strong><br>
+                        基於 Pepper's Ghost 半透鏡光學原理搭建。在實體標本展示箱內，憑空渲染出 3D 虛擬專家精靈。透過解析後端傳回之動態 JSON 數據，角色能在一秒內切換特定的解說動作與手勢，並異步加載語音檔，達成高品質的行前沉浸式解說。
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl text-sky-400">📱</span>
+                        <h3 class="text-xl font-bold text-slate-200">戶外展示：輕量化 Web-AR 隨身探險隊</h3>
+                    </div>
+                    <p class="text-base text-slate-300 text-justify leading-relaxed">
+                        <strong>開發環境：React.js / Vue.js + Web-AR 框架</strong><br>
+                        針對戶外移動端用戶，採用<strong>免下載 App、掃碼即用</strong>的跨平台 Web 網頁架構。利用前端框架實現零延遲相機呼叫與單頁應用（SPA）的絲滑圖鑑解鎖體驗。將 3D 精靈直接渲染於真實樹幹實景之上，大幅降低推廣門檻。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-6" class="slide flex-col w-full justify-center space-y-6">
+            <h2 class="text-3xl font-extrabold text-center text-white">六、 預期成果與學術商轉效益</h2>
+            <p class="text-lg text-slate-400 text-center">本專題旨在實踐學術深度、社會責任與產業應用價值的多維融合。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 max-w-5xl mx-auto">
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800 text-justify">
+                    <h4 class="text-emerald-400 font-bold text-lg mb-2">🎓 國科會大專生計畫</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">挑戰戶外不穩定物理光源下的物件偵測、細粒度部件標註與基於深度訪談之專家職能蒸餾工程。產出具備演算法優化與知識工程實證之高質量學術專題。</p>
+                </div>
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800 text-justify">
+                    <h4 class="text-sky-400 font-bold text-lg mb-2">🌲 學校 USR 地方創生</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">與苗栗在地復育基地合作辦理現場實證，透過互動科技轉移專家暗默知識，建立良性引導機制，緩解人潮踩踏與隨意採集等環境倫理衝突。</p>
+                </div>
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800 text-justify">
+                    <h4 class="text-purple-400 font-bold text-lg mb-2">💰 B2G 智慧觀光潛力</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">整合全息標本箱與免下載行動 Web-AR，未來期許延伸至國中小自然教育的商轉延伸價值。</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 text-center text-base text-slate-300 max-w-4xl mx-auto italic font-semibold leading-relaxed">
+                本計畫不只在演算法與資訊架構層面挑戰了戶外邊緣運算系統的強健性，更旨在打破現行盲目數位化所帶來的冰冷資訊疏離，將「交談溫度」與「人性關懷」重新導入科技教育之中。
+            </div>
+        </div>
+
+        <div id="page-7" class="slide flex-col w-full space-y-6">
+            <h2 class="text-3xl font-extrabold text-sky-400">七、 研究方法與執行時程</h2>
+            <p class="text-lg text-slate-400">從田野訪談、資料標註、模型蒸餾，到現場展示與回饋收斂，形成完整的研究與實驗流程。</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-2">
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 space-y-4 shadow-xl">
+                    <h3 class="text-xl font-bold text-emerald-400">研究方法</h3>
+                    <ul class="text-base text-slate-300 space-y-3 list-disc list-inside text-justify">
+                        <li>蒐集戶外生態場景影像與專家訪談逐字稿，建立多模態資料庫。</li>
+                        <li>透過分層標註與部件特徵對齊，提高模型在逆光與遮蔽情況下的辨識穩定性。</li>
+                        <li>結合 RAG 知識檢索與人格提示詞工程，讓系統具備專家式解說與溫度化互動。</li>
+                        <li>於實地展示場域進行試用與回饋收斂，持續優化介面與互動流程。</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 space-y-4 shadow-xl">
+                    <h3 class="text-xl font-bold text-amber-400">執行時程</h3>
+                    <div class="space-y-3 text-slate-300 text-sm">
+                        <div class="flex items-start space-x-3"><span class="text-sky-400 font-bold">Q1</span><span>資料蒐集與田野觀察，建立初步影像與訪談資料集。</span></div>
+                        <div class="flex items-start space-x-3"><span class="text-sky-400 font-bold">Q2</span><span>完成層級化標註與模型訓練，驗證辨識救援機制。</span></div>
+                        <div class="flex items-start space-x-3"><span class="text-sky-400 font-bold">Q3</span><span>整合知識庫、語音生成與互動介面，完成原型系統雛形。</span></div>
+                        <div class="flex items-start space-x-3"><span class="text-sky-400 font-bold">Q4</span><span>進行現場展示測試，收斂使用者回饋並進行成果整理與推廣。</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 text-slate-300 text-base leading-relaxed">
+                <strong class="text-white">結語：</strong> 此專題不僅是技術驗證，更是連結生態教育、數位人文與尖端 AI 的整體實踐藍圖。
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="flex-shrink-0 bg-slate-900 border-t-2 border-slate-800 px-12 py-5 flex justify-between items-center shadow-2xl">
+        <button onclick="changePage(-1)" id="prev-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 px-6 rounded-lg text-sm transition-all disabled:opacity-20" disabled>
+            ← 上一頁 (PREV)
+        </button>
+        <div class="text-xs font-bold text-slate-500 font-mono tracking-widest hidden md:block">提示：在鍵盤上按 [←] 或 [→] 鍵可進行換頁控制</div>
+        <button onclick="changePage(1)" id="next-btn" class="bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-6 rounded-lg text-sm transition-all shadow-lg">
+            下一頁 (NEXT) →
+        </button>
+    </footer>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 7;
+
+        function changePage(direction) {
+            if (currentPage + direction < 1 || currentPage + direction > totalPages) {
+                if (currentPage === totalPages && direction === 1) {
+                    alert("🎉 提案展示結束。感謝審查！");
+                }
+                return;
+            }
+
+            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            currentPage += direction;
+            document.getElementById(`page-${currentPage}`).classList.add('active');
+
+            document.getElementById('prev-btn').disabled = (currentPage === 1);
+            document.getElementById('page-indicator').innerHTML = `PAGE: 0${currentPage} / 0${totalPages}`;
+            
+            if (currentPage === totalPages) {
+                document.getElementById('next-btn').innerHTML = "展示完成 🏁";
+                document.getElementById('next-btn').className = "bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-6 rounded-lg text-sm transition-all shadow-lg";
+            } else {
+                document.getElementById('next-btn').innerHTML = "下一頁 (NEXT) →";
+                document.getElementById('next-btn').className = "bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-6 rounded-lg text-sm transition-all shadow-lg";
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "ArrowRight") changePage(1);
+            if (e.key === "ArrowLeft") changePage(-1);
+        });
+    </script>
+</body>
+</html>
